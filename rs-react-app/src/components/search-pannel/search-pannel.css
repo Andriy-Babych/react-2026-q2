@@ -1,0 +1,32 @@
+.search-pannel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: 2rem;
+    background-color: #f6f6f6;
+    transition: background 0.25s;
+}
+
+.search-pannel:focus-within {
+    background: #f1f1f1;
+}
+
+.search-input-field{
+    width: 600px;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.search-input-field::placeholder, .search-button{
+    color: rgba(0, 0, 0, 0.25);
+}
+
+.search-button{
+    cursor: pointer;
+}
