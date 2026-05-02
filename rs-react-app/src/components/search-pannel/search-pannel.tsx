@@ -15,7 +15,7 @@ export default class SearchPannel extends Component{
 
     render(): ReactNode {
         return <section className="search-pannel">
-            <input className="search-input-field" type="text" />
+            <input className="search-input-field" type="text" placeholder="Search"/>
             <button className="search-button"></button>
         </section>
     }
