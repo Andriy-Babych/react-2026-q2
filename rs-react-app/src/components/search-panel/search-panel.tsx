@@ -21,9 +21,12 @@ export default class SearchPanel extends Component<object, SearchPanelState> {
   }
 
   handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newSearchItem = event.target.value;
     this.setState({
-      searchTerm: event.target.value,
+      searchTerm: newSearchItem,
     });
+
+    localStorage.setItem('searchTerm', newSearchItem);
   };
 
   render(): ReactNode {
