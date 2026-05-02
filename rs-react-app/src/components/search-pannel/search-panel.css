@@ -1,4 +1,4 @@
-.search-pannel{
+.search-panel{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,7 @@
     transition: background 0.25s;
 }
 
-.search-pannel:focus-within {
+.search-panel:focus-within {
     background: #f1f1f1;
 }
 
@@ -29,4 +29,7 @@
 
 .search-button{
     cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
 }

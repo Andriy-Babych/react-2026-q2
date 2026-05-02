@@ -14,7 +14,7 @@ export default class ResultSection extends Component{
 
     render(): ReactNode {
         return <section className="result-section">
-
+            
         </section>
     }
 }

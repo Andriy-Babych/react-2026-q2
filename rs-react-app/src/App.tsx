@@ -1,11 +1,11 @@
 import './App.css'
-import SearchPannel from './components/search-pannel/search-pannel'
+import SearchPanel from './components/search-pannel/search-panel'
 import ResultSection from './components/result-section/result-section'
 
 function App() {
   return (
     <>
-      <SearchPannel />
+      <SearchPanel />
       <ResultSection />
     </>
   )
