@@ -1,0 +1,35 @@
+.result-section{
+    height: max-content;
+    min-height: 200px;
+    width: 100%;
+    margin-top: 2rem;
+    background-color: #f6f6f6;
+    box-shadow: 3px 3px 15px #000;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.result-item{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 0.5rem;
+    gap: 2rem;
+    border: 1px dashed black;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.result-item__name{
+
+    width: 15%;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.result-item_description{
+    text-align: left;
+    width: 85%;
+}

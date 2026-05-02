@@ -1,5 +1,5 @@
 import './App.css'
-import SearchPanel from './components/search-pannel/search-panel'
+import SearchPanel from './components/search-panel/search-panel'
 import ResultSection from './components/result-section/result-section'
 
 function App() {
