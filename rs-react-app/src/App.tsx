@@ -1,14 +1,17 @@
-import './App.css'
-import SearchPanel from './components/search-panel/search-panel'
-import ResultSection from './components/result-section/result-section'
+import './App.css';
+import SearchPanel from './components/search-panel/search-panel';
+import ResultSection from './components/result-section/result-section';
+import { Component, type ReactNode } from 'react';
 
-function App() {
-  return (
-    <>
-      <SearchPanel />
-      <ResultSection />
-    </>
-  )
+class App extends Component {
+  render(): ReactNode {
+    return (
+      <>
+        <SearchPanel />
+        <ResultSection />
+      </>
+    );
+  }
 }
 
-export default App
+export default App;
