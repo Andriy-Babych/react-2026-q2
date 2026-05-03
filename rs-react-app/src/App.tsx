@@ -23,6 +23,11 @@ class App extends Component<object, AppState> {
         name: 'pickachu',
         description: 'very powerfull pockemon',
       },
+      {
+        id: '2',
+        name: 'bulbazaurus',
+        description: 'not very powerfull pockemon',
+      },
     ],
   };
 
