@@ -1,7 +1,7 @@
 import './App.css';
 import SearchPanel from './components/search-panel/search-panel';
 import ResultSection from './components/result-section/result-section';
-import { Component, type ReactNode } from 'react';
+import { Component, type ChangeEvent, type ReactNode } from 'react';
 
 type ResultItem = {
   id: string;
@@ -17,14 +17,43 @@ type AppState = {
 class App extends Component<object, AppState> {
   state: AppState = {
     searchTerm: '',
-    results: [],
+    results: [
+      {
+        id: '1',
+        name: 'pickachu',
+        description: 'very powerfull pockemon',
+      },
+    ],
   };
+
+  handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = event.target.value;
+
+    this.setState({
+      searchTerm: newSearchTerm,
+    });
+
+    localStorage.setItem('searchTerm', newSearchTerm);
+  };
+
+  componentDidMount(): void {
+    const savedSearchTerm = localStorage.getItem('searchTerm');
+
+    if (savedSearchTerm) {
+      this.setState({
+        searchTerm: savedSearchTerm,
+      });
+    }
+  }
 
   render(): ReactNode {
     return (
       <>
-        <SearchPanel searchTerm={this.state.searchTerm}/>
-        <ResultSection />
+        <SearchPanel
+          searchTerm={this.state.searchTerm}
+          onSearchTermChange={this.handleInputTermChange}
+        />
+        <ResultSection results={this.state.results} />
       </>
     );
   }
