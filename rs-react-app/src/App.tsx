@@ -14,21 +14,28 @@ type AppState = {
   results: ResultItem[];
 };
 
+const mockResults: ResultItem[] = [
+  {
+    id: '1',
+    name: 'Pikachu',
+    description: 'Electric type Pokémon',
+  },
+  {
+    id: '2',
+    name: 'Bulbasaur',
+    description: 'Grass and poison type Pokémon',
+  },
+  {
+    id: '3',
+    name: 'Charmander',
+    description: 'Fire type Pokémon',
+  },
+];
+
 class App extends Component<object, AppState> {
   state: AppState = {
     searchTerm: '',
-    results: [
-      {
-        id: '1',
-        name: 'pickachu',
-        description: 'very powerfull pockemon',
-      },
-      {
-        id: '2',
-        name: 'bulbazaurus',
-        description: 'not very powerfull pockemon',
-      },
-    ],
+    results: [],
   };
 
   handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +48,28 @@ class App extends Component<object, AppState> {
     localStorage.setItem('searchTerm', newSearchTerm);
   };
 
-  componentDidMount(): void {
-    const savedSearchTerm = localStorage.getItem('searchTerm');
+  loadResults = (searchTerm: string): void => {
+    const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
-    if (savedSearchTerm) {
-      this.setState({
-        searchTerm: savedSearchTerm,
-      });
-    }
+    const filteredResults = normalizedSearchTerm
+      ? mockResults.filter((item) =>
+          item.name.toLowerCase().includes(normalizedSearchTerm)
+        )
+      : mockResults;
+
+    this.setState({
+      results: filteredResults,
+    });
+  };
+
+  componentDidMount(): void {
+    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
+
+    this.setState({
+      searchTerm: savedSearchTerm,
+    });
+
+    this.loadResults(savedSearchTerm);
   }
 
   render(): ReactNode {
