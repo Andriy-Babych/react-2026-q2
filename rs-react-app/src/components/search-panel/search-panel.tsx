@@ -10,7 +10,11 @@ export default class SearchPanel extends Component<SearchPanelProps> {
   render(): ReactNode {
     return (
       <section className="search-panel">
-        <button className="search-button" type="button" aria-label="Search">
+        <button
+          className="search-button"
+          type="button"
+          aria-label="Search"
+        >
           <span className="material-symbols-outlined">search</span>
         </button>
         <input
