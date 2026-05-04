@@ -27,7 +27,7 @@ export default class ResultSection extends Component<ResultSectionProps> {
           </div>
         ))}
 
-        <ErrorButton onShowError={this.props.onShowError}/>
+        <ErrorButton onShowError={this.props.onShowError} />
       </section>
     );
   }

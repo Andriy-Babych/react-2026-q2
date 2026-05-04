@@ -1,0 +1,14 @@
+.error-boudary{
+    margin-top: 2rem;
+
+    h2{
+        font-size: 3rem;
+        color: #fff;
+    }
+
+    p{
+        color: #fff;
+        font-size: 2rem;
+        margin-top: 1rem;
+    }
+}
