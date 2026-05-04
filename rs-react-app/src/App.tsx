@@ -15,6 +15,7 @@ type AppState = {
   isLoading: boolean;
   error: string;
   lastSubmittedSearchTerm: string;
+  shouldThrowError: boolean;
 };
 
 class App extends Component<object, AppState> {
@@ -24,6 +25,7 @@ class App extends Component<object, AppState> {
     isLoading: false,
     error: '',
     lastSubmittedSearchTerm: '',
+    shouldThrowError: false,
   };
 
   handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +119,10 @@ class App extends Component<object, AppState> {
   }
 
   render(): ReactNode {
-    const { results, isLoading, error, searchTerm } = this.state;
+    const { results, isLoading, error, searchTerm, shouldThrowError } =
+      this.state;
+
+    if (shouldThrowError) throw new Error('Test application error');
 
     return (
       <>
@@ -131,7 +136,12 @@ class App extends Component<object, AppState> {
 
         {error && <p className="api-status">{error}</p>}
 
-        {!isLoading && !error && <ResultSection results={results} />}
+        {!isLoading && !error && (
+          <ResultSection
+            onShowError={() => this.setState({ shouldThrowError: true })}
+            results={results}
+          />
+        )}
       </>
     );
   }

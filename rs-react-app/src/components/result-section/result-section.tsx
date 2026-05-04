@@ -1,5 +1,6 @@
 import { Component, type ReactNode } from 'react';
 import './result-section.css';
+import ErrorButton from '../error-button/error-button';
 
 type ResultItem = {
   id: string;
@@ -9,6 +10,7 @@ type ResultItem = {
 
 type ResultSectionProps = {
   results: ResultItem[];
+  onShowError: () => void;
 };
 
 export default class ResultSection extends Component<ResultSectionProps> {
@@ -24,6 +26,8 @@ export default class ResultSection extends Component<ResultSectionProps> {
             </div>
           </div>
         ))}
+
+        <ErrorButton onShowError={this.props.onShowError}/>
       </section>
     );
   }
