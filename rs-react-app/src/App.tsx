@@ -32,8 +32,6 @@ class App extends Component<object, AppState> {
     this.setState({
       searchTerm: newSearchTerm,
     });
-
-    localStorage.setItem('searchTerm', newSearchTerm);
   };
 
   loadResults = async (searchTerm: string): Promise<void> => {
@@ -62,6 +60,10 @@ class App extends Component<object, AppState> {
         body: params,
       });
 
+      if (!response.ok) {
+        throw new Error('Request failed');
+      }
+
       const data = await response.json();
 
       const results: ResultItem[] = data.foods.map(
@@ -78,9 +80,9 @@ class App extends Component<object, AppState> {
         results,
         isLoading: false,
       });
-    } catch (error) {
+    } catch {
       this.setState({
-        error: 'Smth went wrong. Please try again.',
+        error: 'Something went wrong. Please try again.',
         results: [],
         isLoading: false,
       });
