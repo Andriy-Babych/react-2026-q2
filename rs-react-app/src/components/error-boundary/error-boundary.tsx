@@ -30,7 +30,7 @@ export default class ErrorBoundary extends Component<
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <section className="error-boudary">
+        <section className="error-boundary">
           <h2>Something went wrong.</h2>
           <p>Please refresh the page or try again later.</p>
         </section>

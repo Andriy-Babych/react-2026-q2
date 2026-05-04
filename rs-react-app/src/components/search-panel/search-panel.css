@@ -10,9 +10,9 @@
     transition: all  0.25s;
 }
 
-/* .search-panel:hover{
+.search-panel:hover{
     box-shadow: 3px 3px 15px #000;
-} */
+} 
 
 .search-panel:focus-within {
     background: #f1f1f1;
