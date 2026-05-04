@@ -14,6 +14,7 @@ type AppState = {
   results: ResultItem[];
   isLoading: boolean;
   error: string;
+  lastSubmittedSearchTerm: string;
 };
 
 class App extends Component<object, AppState> {
@@ -22,6 +23,7 @@ class App extends Component<object, AppState> {
     results: [],
     isLoading: false,
     error: '',
+    lastSubmittedSearchTerm: '',
   };
 
   handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -85,32 +87,49 @@ class App extends Component<object, AppState> {
     }
   };
 
-  componentDidMount(): void {
-    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
+  handleSearch = (): void => {
+    const normalizedSearchTerm = this.state.searchTerm.toLowerCase().trim();
+
+    if (normalizedSearchTerm === this.state.lastSubmittedSearchTerm) return;
 
     this.setState({
-      searchTerm: savedSearchTerm,
+      searchTerm: normalizedSearchTerm,
+      lastSubmittedSearchTerm: normalizedSearchTerm,
     });
 
-    this.loadResults(savedSearchTerm);
+    localStorage.setItem('searchTerm', normalizedSearchTerm);
+
+    this.loadResults(normalizedSearchTerm);
+  };
+
+  componentDidMount(): void {
+    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
+    const normalizedSearchTerm = savedSearchTerm.toLowerCase().trim();
+
+    this.setState({
+      searchTerm: normalizedSearchTerm,
+      lastSubmittedSearchTerm: normalizedSearchTerm,
+    });
+
+    this.loadResults(normalizedSearchTerm);
   }
 
   render(): ReactNode {
     const { results, isLoading, error, searchTerm } = this.state;
+
     return (
       <>
         <SearchPanel
           searchTerm={searchTerm}
           onSearchTermChange={this.handleInputTermChange}
-          onSearch={() => this.loadResults(searchTerm)}
+          onSearch={this.handleSearch}
         />
 
-        {isLoading && <p className='api-status'>Loading...</p>}
+        {isLoading && <p className="api-status">Loading...</p>}
 
-        {error && <p className='api-status'>{error}</p>}
+        {error && <p className="api-status">{error}</p>}
 
         {!isLoading && !error && <ResultSection results={results} />}
-        
       </>
     );
   }

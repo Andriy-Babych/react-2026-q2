@@ -10,12 +10,14 @@ type SearchPanelProps = {
 export default class SearchPanel extends Component<SearchPanelProps> {
   render(): ReactNode {
     return (
-      <section className="search-panel">
+      <form className="search-panel" onSubmit={(event) => {
+        event.preventDefault();
+        this.props.onSearch();
+      }}>
         <button
           className="search-button"
-          type="button"
+          type="submit"
           aria-label="Search"
-          onClick={this.props.onSearch}
         >
           <span className="material-symbols-outlined">search</span>
         </button>
@@ -26,7 +28,7 @@ export default class SearchPanel extends Component<SearchPanelProps> {
           value={this.props.searchTerm}
           onChange={this.props.onSearchTermChange}
         />
-      </section>
+      </form>
     );
   }
 }
