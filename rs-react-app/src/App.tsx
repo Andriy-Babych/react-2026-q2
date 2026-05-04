@@ -14,24 +14,6 @@ type AppState = {
   results: ResultItem[];
 };
 
-const mockResults: ResultItem[] = [
-  {
-    id: '1',
-    name: 'Pikachu',
-    description: 'Electric type Pokémon',
-  },
-  {
-    id: '2',
-    name: 'Bulbasaur',
-    description: 'Grass and poison type Pokémon',
-  },
-  {
-    id: '3',
-    name: 'Charmander',
-    description: 'Fire type Pokémon',
-  },
-];
-
 class App extends Component<object, AppState> {
   state: AppState = {
     searchTerm: '',
@@ -48,17 +30,40 @@ class App extends Component<object, AppState> {
     localStorage.setItem('searchTerm', newSearchTerm);
   };
 
-  loadResults = (searchTerm: string): void => {
+  loadResults = async (searchTerm: string): Promise<void> => {
     const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
-    const filteredResults = normalizedSearchTerm
-      ? mockResults.filter((item) =>
-          item.name.toLowerCase().includes(normalizedSearchTerm)
-        )
-      : mockResults;
+    const params = new URLSearchParams();
+
+    params.append('pageNumber', '0');
+    params.append('pageSize', '10');
+
+    if (normalizedSearchTerm) {
+      params.append('name', normalizedSearchTerm);
+    }
+
+    const response = await fetch('https://stapi.co/api/v1/rest/food/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params,
+    });
+
+    const data = await response.json();
+
+    const results: ResultItem[] = data.foods.map(
+      (foodItem: { uid: string; name: string; earthlyOrigin?: string }) => ({
+        id: foodItem.uid,
+        name: foodItem.name,
+        description: foodItem.earthlyOrigin
+          ? `Origin: ${foodItem.earthlyOrigin}`
+          : 'Unknown origin',
+      })
+    );
 
     this.setState({
-      results: filteredResults,
+      results,
     });
   };
 
