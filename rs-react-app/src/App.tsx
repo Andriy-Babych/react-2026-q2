@@ -52,7 +52,7 @@ class App extends Component<object, AppState> {
         params.append('name', normalizedSearchTerm);
       }
 
-      const response = await fetch('https://stapi.co/api/v1/rest/fod/search', {
+      const response = await fetch('https://stapi.co/api/v1/rest/food/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -102,6 +102,7 @@ class App extends Component<object, AppState> {
         <SearchPanel
           searchTerm={searchTerm}
           onSearchTermChange={this.handleInputTermChange}
+          onSearch={() => this.loadResults(searchTerm)}
         />
 
         {isLoading && <p className='api-status'>Loading...</p>}

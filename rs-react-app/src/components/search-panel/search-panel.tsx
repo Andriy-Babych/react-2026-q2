@@ -4,6 +4,7 @@ import './search-panel.css';
 type SearchPanelProps = {
   searchTerm: string;
   onSearchTermChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onSearch: () => void;
 };
 
 export default class SearchPanel extends Component<SearchPanelProps> {
@@ -14,6 +15,7 @@ export default class SearchPanel extends Component<SearchPanelProps> {
           className="search-button"
           type="button"
           aria-label="Search"
+          onClick={this.props.onSearch}
         >
           <span className="material-symbols-outlined">search</span>
         </button>
