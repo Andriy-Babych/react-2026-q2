@@ -19,7 +19,7 @@
 }
 
 .search-input-field{
-    width: 600px;
+    width: 30rem;
     padding: 10px;
     font-size: 1rem;
     outline: none;
@@ -36,4 +36,9 @@
     background: transparent;
     border: none;
     outline: none;
+    transition: all 0.1s;
+}
+
+.search-button:hover{
+    transform: scale(1.2);
 }

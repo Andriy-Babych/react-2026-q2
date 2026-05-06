@@ -1,6 +1,5 @@
 .result-section{
-    height: max-content;
-    min-height: 200px;
+    height: auto;
     width: 100%;
     margin-top: 2rem;
     background-color: #f6f6f6;
@@ -8,6 +7,7 @@
     border-radius: 1rem;
     padding: 2rem;
     box-sizing: border-box;
+
 }
 
 .result-item{
@@ -31,4 +31,12 @@
 .result-item_description{
     text-align: left;
 
+}
+
+.searchedItemNotFound{
+    color: #000;
+    font-size: 2rem;
+    line-height: normal;
+    font-weight: 500;
+    margin-bottom: 1rem;
 }

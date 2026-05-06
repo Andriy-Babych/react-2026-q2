@@ -1,5 +1,9 @@
 .error-boundary{
-    margin-top: 2rem;
+    margin: 2rem auto;
+    background-color: #e96a6a;
+    padding: 2rem;
+    border: 2px solid black;
+    border-radius: 1re;
 
     h2{
         font-size: 3rem;
