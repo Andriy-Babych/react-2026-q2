@@ -12,6 +12,7 @@ export default class ErrorButton extends Component<ErrorButtonProps> {
         onClick={this.props.onShowError}
         className="error-button"
         type="button"
+        aria-label="error-button"
       >
         Simulate Error!
       </button>
