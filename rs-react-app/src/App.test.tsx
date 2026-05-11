@@ -14,7 +14,7 @@ test('shows loading while fetching data', () => {
   expect(screen.getByText('Loading...')).toBeInTheDocument();
 });
 
-test('', async () => {
+test('renders results after successful fetch', async () => {
   vi.stubGlobal(
     'fetch',
     vi.fn(() =>
