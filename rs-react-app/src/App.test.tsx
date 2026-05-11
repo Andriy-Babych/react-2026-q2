@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { test, expect, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
 test('shows loading while fetching data', () => {
@@ -75,4 +76,29 @@ test('loads saved search term from localStorage', async () => {
   render(<App />);
 
   expect(screen.getByRole('searchbox')).toHaveValue('pizza');
+});
+
+test('saves search term to localStorage after search', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: async () => ({
+          foods: [],
+        }),
+      })
+    )
+  );
+
+  const user = userEvent.setup();
+
+  render(<App />);
+
+  const input = screen.getByRole('searchbox');
+  await user.type(input, 'Pizza');
+
+  await user.click(screen.getByRole('button', { name: 'Search' }));
+
+  expect(localStorage.getItem('searchTerm')).toBe('pizza');
 });
