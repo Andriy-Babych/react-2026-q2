@@ -20,7 +20,7 @@ test('', async () => {
       Promise.resolve({
         ok: true,
         json: async () => ({
-            foods: [
+          foods: [
             {
               uid: 'FOMA0000264633',
               name: 'Abalone',
@@ -34,7 +34,45 @@ test('', async () => {
 
   render(<App />);
 
-  expect(await screen.findByText("Abalone")).toBeInTheDocument();
-  expect(screen.getByText("FOMA0000264633")).toBeInTheDocument();
-  expect(screen.getByText("Origin: Earth")).toBeInTheDocument();
+  expect(await screen.findByText('Abalone')).toBeInTheDocument();
+  expect(screen.getByText('FOMA0000264633')).toBeInTheDocument();
+  expect(screen.getByText('Origin: Earth')).toBeInTheDocument();
+});
+
+test('shows error message after failed fetch', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(() =>
+      Promise.resolve({
+        ok: false,
+        json: async () => ({}),
+      })
+    )
+  );
+
+  render(<App />);
+
+  expect(
+    await screen.findByText('Something went wrong. Please try again.')
+  ).toBeInTheDocument();
+});
+
+test('loads saved search term from localStorage', async () => {
+  localStorage.setItem('searchTerm', 'pizza');
+
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: async () => ({
+          foods: [],
+        }),
+      })
+    )
+  );
+
+  render(<App />);
+
+  expect(screen.getByRole('searchbox')).toHaveValue('pizza');
 });
