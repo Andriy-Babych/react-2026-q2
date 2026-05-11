@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { test, expect, vi } from 'vitest';
 import App from './App';
-import userEvent from '@testing-library/user-event';
 
 test('shows loading while fetching data', () => {
   vi.stubGlobal(

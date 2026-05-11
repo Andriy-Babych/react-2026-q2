@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1778535640461" clover="3.2.0">
-  <project timestamp="1778535640461" name="All files">
-    <metrics statements="47" coveredstatements="28" conditionals="23" coveredconditionals="14" methods="15" coveredmethods="9" elements="85" coveredelements="51" complexity="0" loc="47" ncloc="47" packages="5" files="5" classes="5"/>
+<coverage generated="1778536242981" clover="3.2.0">
+  <project timestamp="1778536242981" name="All files">
+    <metrics statements="47" coveredstatements="34" conditionals="23" coveredconditionals="16" methods="15" coveredmethods="12" elements="85" coveredelements="62" complexity="0" loc="47" ncloc="47" packages="5" files="5" classes="5"/>
     <package name="src">
       <metrics statements="35" coveredstatements="22" conditionals="19" coveredconditionals="12" methods="7" coveredmethods="4"/>
       <file name="App.tsx" path="C:\Users\andri\OneDrive\Робочий стіл\RS school\RSProject\rs-react-app\src\App.tsx">
@@ -44,15 +44,15 @@
       </file>
     </package>
     <package name="src.components.error-boundary">
-      <metrics statements="6" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
       <file name="error-boundary.tsx" path="C:\Users\andri\OneDrive\Робочий стіл\RS school\RSProject\rs-react-app\src\components\error-boundary\error-boundary.tsx">
-        <metrics statements="6" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="31" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.components.error-button">
