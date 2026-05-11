@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import { test, expect, vi } from 'vitest';
-import userEvent from '@testing-library/user-event';
 import ResultSection from './result-section';
 
 test('renders item id name and description', () => {
