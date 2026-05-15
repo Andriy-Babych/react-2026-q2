@@ -1,7 +1,7 @@
 import './App.css';
 import SearchPanel from './components/search-panel/search-panel';
 import ResultSection from './components/result-section/result-section';
-import { Component, type ChangeEvent, type ReactNode } from 'react';
+import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
 
 type ResultItem = {
   id: string;
@@ -9,40 +9,27 @@ type ResultItem = {
   description: string;
 };
 
-type AppState = {
-  searchTerm: string;
-  results: ResultItem[];
-  isLoading: boolean;
-  error: string;
-  lastSubmittedSearchTerm: string;
-  shouldThrowError: boolean;
-};
+function App() {
+  const [searchTerm, setSearchTerm] = useState(() => {
+      return localStorage.getItem('searchTerm') || '';
+    }),
+    [results, setResults] = useState<ResultItem[]>([]),
+    [isLoading, setIsLoading] = useState(false),
+    [error, setError] = useState(''),
+    [lastSubmittedSearchTerm, setLastSubmittedSearchTerm] = useState(() => {
+      return localStorage.getItem('searchTerm') || '';
+    }),
+    [shouldThrowError, setShouldThrowError] = useState(false);
 
-class App extends Component<object, AppState> {
-  state: AppState = {
-    searchTerm: '',
-    results: [],
-    isLoading: false,
-    error: '',
-    lastSubmittedSearchTerm: '',
-    shouldThrowError: false,
+  const handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
-  handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = event.target.value;
-
-    this.setState({
-      searchTerm: newSearchTerm,
-    });
-  };
-
-  loadResults = async (searchTerm: string): Promise<void> => {
+  const loadResults = useCallback(async (searchTerm: string): Promise<void> => {
     const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
-    this.setState({
-      isLoading: true,
-      error: '',
-    });
+    setIsLoading(true);
+    setError('');
 
     try {
       const params = new URLSearchParams();
@@ -78,73 +65,52 @@ class App extends Component<object, AppState> {
         })
       );
 
-      this.setState({
-        results,
-        isLoading: false,
-      });
+      setResults(results);
+      setIsLoading(false);
     } catch {
-      this.setState({
-        error: 'Something went wrong. Please try again.',
-        results: [],
-        isLoading: false,
-      });
+      setError('Something went wrong. Please try again');
+      setResults([]);
+      setIsLoading(false);
     }
-  };
+  }, []);
 
-  handleSearch = (): void => {
-    const normalizedSearchTerm = this.state.searchTerm.toLowerCase().trim();
+  const handleSearch = (): void => {
+    const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
-    if (normalizedSearchTerm === this.state.lastSubmittedSearchTerm) return;
+    if (normalizedSearchTerm === lastSubmittedSearchTerm) return;
 
-    this.setState({
-      searchTerm: normalizedSearchTerm,
-      lastSubmittedSearchTerm: normalizedSearchTerm,
-    });
+    setSearchTerm(normalizedSearchTerm);
+    setLastSubmittedSearchTerm(normalizedSearchTerm);
 
     localStorage.setItem('searchTerm', normalizedSearchTerm);
-
-    this.loadResults(normalizedSearchTerm);
   };
 
-  componentDidMount(): void {
-    const savedSearchTerm = localStorage.getItem('searchTerm') || '';
-    const normalizedSearchTerm = savedSearchTerm.toLowerCase().trim();
+  useEffect(() => {
+    loadResults(lastSubmittedSearchTerm);
+  }, [loadResults, lastSubmittedSearchTerm]);
 
-    this.setState({
-      searchTerm: normalizedSearchTerm,
-      lastSubmittedSearchTerm: normalizedSearchTerm,
-    });
+  if (shouldThrowError) throw new Error('Test application error');
 
-    this.loadResults(normalizedSearchTerm);
-  }
+  return (
+    <>
+      <SearchPanel
+        searchTerm={searchTerm}
+        onSearchTermChange={handleInputTermChange}
+        onSearch={handleSearch}
+      />
 
-  render(): ReactNode {
-    const { results, isLoading, error, searchTerm, shouldThrowError } =
-      this.state;
+      {isLoading && <p className="api-status">Loading...</p>}
 
-    if (shouldThrowError) throw new Error('Test application error');
+      {error && <p className="api-status">{error}</p>}
 
-    return (
-      <>
-        <SearchPanel
-          searchTerm={searchTerm}
-          onSearchTermChange={this.handleInputTermChange}
-          onSearch={this.handleSearch}
+      {!isLoading && !error && (
+        <ResultSection
+          onShowError={() => setShouldThrowError(true)}
+          results={results}
         />
-
-        {isLoading && <p className="api-status">Loading...</p>}
-
-        {error && <p className="api-status">{error}</p>}
-
-        {!isLoading && !error && (
-          <ResultSection
-            onShowError={() => this.setState({ shouldThrowError: true })}
-            results={results}
-          />
-        )}
-      </>
-    );
-  }
+      )}
+    </>
+  );
 }
 
 export default App;
