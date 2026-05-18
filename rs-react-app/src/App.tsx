@@ -68,7 +68,7 @@ function App() {
       setResults(results);
       setIsLoading(false);
     } catch {
-      setError('Something went wrong. Please try again');
+      setError('Something went wrong. Please try again.');
       setResults([]);
       setIsLoading(false);
     }
