@@ -2,6 +2,7 @@ import SearchPanel from '../../components/search-panel/search-panel';
 import ResultSection from '../../components/result-section/result-section';
 
 import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 type ResultItem = {
   id: string;
@@ -10,6 +11,9 @@ type ResultItem = {
 };
 
 function HomePage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const currentPage = Number(searchParams.get('page') || '1');
+
     const [searchTerm, setSearchTerm] = useState(() => {
       return localStorage.getItem('searchTerm') || '';
     }),
