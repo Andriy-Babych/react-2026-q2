@@ -1,5 +1,6 @@
 import SearchPanel from '../../components/search-panel/search-panel';
 import ResultSection from '../../components/result-section/result-section';
+
 import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
 
 type ResultItem = {
