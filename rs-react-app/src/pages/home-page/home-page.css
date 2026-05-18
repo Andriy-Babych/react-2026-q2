@@ -1,0 +1,26 @@
+*{
+    box-sizing: border-box;
+}
+
+.home-content {
+    display: flex;
+    gap: 1rem;
+}
+
+.results-panel{
+    width: 75%;
+}
+
+.details-panel{
+    width: 25%;
+    background-color: transparent;
+    margin-top: 1rem;
+    text-align: start;
+    
+
+    
+    color: #fff;
+    h2{
+        color: inherit;
+    }
+}

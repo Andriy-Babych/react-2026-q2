@@ -1,7 +1,7 @@
-.result-section{
+.result-section {
     height: auto;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 1rem;
     background-color: #f6f6f6;
     box-shadow: 3px 3px 15px #000;
     border-radius: 1rem;
@@ -10,7 +10,7 @@
 
 }
 
-.result-item{
+.result-item {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -21,22 +21,31 @@
     margin-bottom: 1rem;
 }
 
-.result-item_name{
+.result-item_name {
 
     font-size: 1.1rem;
     font-weight: bold;
     text-align: left;
 }
 
-.result-item_description{
+.result-item_description {
     text-align: left;
 
 }
 
-.searchedItemNotFound{
+.result-item.active {
+    background-color: rgba(69, 204, 91, 0.2);
+}
+
+.searchedItemNotFound {
     color: #000;
     font-size: 2rem;
     line-height: normal;
     font-weight: 500;
     margin-bottom: 1rem;
+}
+
+.result-item-link {
+    text-decoration: none;
+    color: inherit;
 }

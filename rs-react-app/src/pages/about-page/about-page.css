@@ -1,0 +1,54 @@
+:root{
+    --main-white-color: hsl(360 100% 100%);
+}
+
+.about_page-container {
+  display: block;
+  text-align: start;
+  border: 3px solid var(--main-white-color);
+  border-radius: 0.5rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: hsl(246, 63%, 61%);
+
+    h1 {
+        font-size: 3rem;
+        line-height: normal;
+        color: var(--main-white-color);
+        margin: 0;
+    }
+}
+
+.author{
+    margin-top: 2rem;
+    line-height: normal;
+    color: var(--main-white-color);
+    font-size: 1.25rem;
+    font-style: italic;
+    font-weight: normal;
+
+    span{
+        font-weight: 700;
+    }
+}
+
+.description{
+    margin-top: 1rem;
+    line-height: 1.5;
+    color: var(--main-white-color);
+    font-size: 1rem;
+}
+
+.course-link{
+    margin-top: 1rem;
+    font-size: 1.25rem;
+    color: var(--main-white-color);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.course-link:hover{
+    color: hsla(0, 0%, 100%, 0.8);
+}

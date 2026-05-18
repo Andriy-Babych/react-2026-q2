@@ -1,0 +1,21 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: transparent;
+
+
+    a {
+        text-decoration: none;
+        margin: 0 1rem;
+        color: hsl(360 100% 100%);
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
