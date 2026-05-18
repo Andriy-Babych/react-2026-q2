@@ -11,50 +11,50 @@ type FoodDetails = {
 
 
 type FoodDetailsResponse = {
-  food: FoodDetails;
+    food: FoodDetails;
 };
 
 export default function DetailsPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  const [details, setDetails] = useState<FoodDetails | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+    const [details, setDetails] = useState<FoodDetails | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
-  useEffect(() => {
-    if (!id) return;
+    useEffect(() => {
+        if (!id) return;
 
-    const fetchDetails = async () => {
-      setIsLoading(true);
-      setError('');
+        const fetchDetails = async () => {
+            setIsLoading(true);
+            setError('');
 
-      try {
-        const response = await fetch(
-          `https://stapi.co/api/v1/rest/food?uid=${id}`
-        );
+            try {
+                const response = await fetch(
+                    `https://stapi.co/api/v1/rest/food?uid=${id}`
+                );
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch details');
-        }
+                if (!response.ok) {
+                    throw new Error('Failed to fetch details');
+                }
 
-        const data = (await response.json()) as FoodDetailsResponse;
-        setDetails(data.food);
-      } catch {
-        setError('Failed to fetch details');
-        setDetails(null);
-      } finally {
-        setIsLoading(false);
-      }
+                const data = (await response.json()) as FoodDetailsResponse;
+                setDetails(data.food);
+            } catch {
+                setError('Failed to fetch details');
+                setDetails(null);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchDetails();
+    }, [id]);
+
+    const handleBackButtonClick = () => {
+        navigate(`/${location.search}`);
     };
-
-    fetchDetails();
-  }, [id]);
-
-  const handleBackButtonClick = () => {
-    navigate(`/${location.search}`);
-  };
 
     return (
         <aside>
