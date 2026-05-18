@@ -1,5 +1,6 @@
 import SearchPanel from '../../components/search-panel/search-panel';
 import ResultSection from '../../components/result-section/result-section';
+import Pagination from '../../components/pagination/pagination';
 
 import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -29,7 +30,18 @@ function HomePage() {
     setSearchTerm(event.target.value);
   };
 
-  const loadResults = useCallback(async (searchTerm: string): Promise<void> => {
+  const handlePrevPageChange = () => {
+    const newPage = currentPage - 1;
+    if (newPage < 1) return;
+    setSearchParams({ page: newPage.toString() });
+  }
+
+  const handleNextPageChange = () => {
+    const newPage = currentPage + 1;
+    setSearchParams({ page: newPage.toString() });
+  }
+
+  const loadResults = useCallback(async (searchTerm: string, currentPage: number): Promise<void> => {
     const normalizedSearchTerm = searchTerm.toLowerCase().trim();
 
     setIsLoading(true);
@@ -38,7 +50,7 @@ function HomePage() {
     try {
       const params = new URLSearchParams();
 
-      params.append('pageNumber', '0');
+      params.append('pageNumber', (currentPage-1).toString());
       params.append('pageSize', '10');
 
       if (normalizedSearchTerm) {
@@ -90,8 +102,8 @@ function HomePage() {
   };
 
   useEffect(() => {
-    loadResults(lastSubmittedSearchTerm);
-  }, [loadResults, lastSubmittedSearchTerm]);
+    loadResults(lastSubmittedSearchTerm, currentPage);
+  }, [loadResults, lastSubmittedSearchTerm, currentPage]);
 
   if (shouldThrowError) throw new Error('Test application error');
 
@@ -108,11 +120,15 @@ function HomePage() {
       {error && <p className="api-status">{error}</p>}
 
       {!isLoading && !error && (
-        <ResultSection
-          onShowError={() => setShouldThrowError(true)}
-          results={results}
-        />
+        <>
+          <Pagination />
+          <ResultSection
+            onShowError={() => setShouldThrowError(true)}
+            results={results}
+          />
+        </>
       )}
+      
     </>
   );
 }
