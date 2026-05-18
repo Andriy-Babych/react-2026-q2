@@ -17,7 +17,7 @@
         line-height: 1.5;
     }
 
-    button{
+    .back_home-button{
         margin-top: 2rem;
         padding: 0.5rem 1rem;
         font-size: 1.2rem;
@@ -33,7 +33,7 @@
         }
     }
 
-    button:hover{
+    .back_home-button:hover{
         background-color: hsl(360 100% 100%);
 
         a{
