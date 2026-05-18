@@ -1,0 +1,43 @@
+.notFoundPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+
+    h1{
+        font-size: 10rem;
+        color: hsl(360 100% 100%);
+        line-height: normal;
+    }
+    p{
+        color: antiquewhite;
+        font-size: 1.5rem;
+        line-height: 1.5;
+    }
+
+    button{
+        margin-top: 2rem;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        color: hsl(360 100% 100%);
+        background-color: transparent;
+        border: 2px solid hsl(360 100% 100%);
+        border-radius: 5px;
+        cursor: pointer;
+
+        a{
+            text-decoration: none;
+            color: hsl(360 100% 100%);
+        }
+    }
+
+    button:hover{
+        background-color: hsl(360 100% 100%);
+
+        a{
+            color: black;
+        }
+    }
+}
