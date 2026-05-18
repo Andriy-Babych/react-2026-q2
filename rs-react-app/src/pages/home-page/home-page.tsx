@@ -12,12 +12,13 @@ type ResultItem = {
 };
 
 function HomePage() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const currentPage = Number(searchParams.get('page') || '1');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get('page') || '1');
+  const totalPages = 10;
 
-    const [searchTerm, setSearchTerm] = useState(() => {
-      return localStorage.getItem('searchTerm') || '';
-    }),
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return localStorage.getItem('searchTerm') || '';
+  }),
     [results, setResults] = useState<ResultItem[]>([]),
     [isLoading, setIsLoading] = useState(false),
     [error, setError] = useState(''),
@@ -50,7 +51,7 @@ function HomePage() {
     try {
       const params = new URLSearchParams();
 
-      params.append('pageNumber', (currentPage-1).toString());
+      params.append('pageNumber', (currentPage - 1).toString());
       params.append('pageSize', '10');
 
       if (normalizedSearchTerm) {
@@ -99,6 +100,8 @@ function HomePage() {
     setLastSubmittedSearchTerm(normalizedSearchTerm);
 
     localStorage.setItem('searchTerm', normalizedSearchTerm);
+
+    setSearchParams({ page: '1' });
   };
 
   useEffect(() => {
@@ -121,14 +124,21 @@ function HomePage() {
 
       {!isLoading && !error && (
         <>
-          <Pagination />
           <ResultSection
             onShowError={() => setShouldThrowError(true)}
             results={results}
           />
+          {results.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPreviousPage={handlePrevPageChange}
+              onNextPage={handleNextPageChange}
+            />
+          )}
         </>
       )}
-      
+
     </>
   );
 }
