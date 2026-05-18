@@ -5,6 +5,10 @@ import Pagination from '../../components/pagination/pagination';
 import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
+import { useLocalStorage } from '../../hooks/use-local-storage';
+
+import './home-page.css';
+
 
 type ResultItem = {
   id: string;
@@ -15,17 +19,13 @@ type ResultItem = {
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get('page') || '1');
-  const totalPages = 10;
+  const [totalPages, setTotalPages] = useState(1);
 
-  const [searchTerm, setSearchTerm] = useState(() => {
-    return localStorage.getItem('searchTerm') || '';
-  }),
+  const [searchTerm, setSearchTerm] = useLocalStorage('searchTerm', ''),
     [results, setResults] = useState<ResultItem[]>([]),
     [isLoading, setIsLoading] = useState(false),
     [error, setError] = useState(''),
-    [lastSubmittedSearchTerm, setLastSubmittedSearchTerm] = useState(() => {
-      return localStorage.getItem('searchTerm') || '';
-    }),
+    [lastSubmittedSearchTerm, setLastSubmittedSearchTerm] = useState(searchTerm),
     [shouldThrowError, setShouldThrowError] = useState(false);
 
   const handleInputTermChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +59,8 @@ function HomePage() {
         params.append('name', normalizedSearchTerm);
       }
 
+      console.log(params.toString());
+
       const response = await fetch('https://stapi.co/api/v1/rest/food/search', {
         method: 'POST',
         headers: {
@@ -72,6 +74,8 @@ function HomePage() {
       }
 
       const data = await response.json();
+      console.log(data);
+      setTotalPages(data.page.totalPages);
 
       const results: ResultItem[] = data.foods.map(
         (foodItem: { uid: string; name: string; earthlyOrigin?: string }) => ({
@@ -84,6 +88,7 @@ function HomePage() {
       );
 
       setResults(results);
+
       setIsLoading(false);
     } catch {
       setError('Something went wrong. Please try again.');
@@ -99,8 +104,6 @@ function HomePage() {
 
     setSearchTerm(normalizedSearchTerm);
     setLastSubmittedSearchTerm(normalizedSearchTerm);
-
-    localStorage.setItem('searchTerm', normalizedSearchTerm);
 
     setSearchParams({ page: '1' });
   };
@@ -124,23 +127,27 @@ function HomePage() {
       {error && <p className="api-status">{error}</p>}
 
       {!isLoading && !error && (
-        <>
-          <ResultSection
-            onShowError={() => setShouldThrowError(true)}
-            results={results}
-          />
-          
-          <Outlet />
-
-          {results.length > 0 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPreviousPage={handlePrevPageChange}
-              onNextPage={handleNextPageChange}
+        <div className="home-content">
+          <div className="results-panel">
+            <ResultSection
+              onShowError={() => setShouldThrowError(true)}
+              results={results}
             />
-          )}
-        </>
+
+            {results.length > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPreviousPage={handlePrevPageChange}
+                onNextPage={handleNextPageChange}
+              />
+            )}
+          </div>
+
+          <div className="details-panel">
+            <Outlet />
+          </div>
+        </div>
       )}
 
     </>
