@@ -1,5 +1,6 @@
 import './result-section.css';
 import ErrorButton from '../error-button/error-button';
+import { Link } from 'react-router-dom';
 
 type ResultItem = {
   id: string;
@@ -22,13 +23,15 @@ export default function ResultSection({
         <div className="searchedItemNotFound">No Such FOOD</div>
       ) : (
         results.map((resultElement) => (
-          <div className="result-item" key={resultElement.id}>
-            <div className="result-item_id">{resultElement.id}</div>
-            <div className="result-item_name">{resultElement.name}</div>
-            <div className="result-item_description">
-              {resultElement.description}
+          <Link className='result-item-link' to={`details/${resultElement.id}`} key={resultElement.id}>
+            <div className="result-item">
+              <div className="result-item_id">{resultElement.id}</div>
+              <div className="result-item_name">{resultElement.name}</div>
+              <div className="result-item_description">
+                {resultElement.description}
+              </div>
             </div>
-          </div>
+          </Link>
         ))
       )}
 

@@ -3,7 +3,8 @@ import ResultSection from '../../components/result-section/result-section';
 import Pagination from '../../components/pagination/pagination';
 
 import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
+
 
 type ResultItem = {
   id: string;
@@ -128,6 +129,9 @@ function HomePage() {
             onShowError={() => setShouldThrowError(true)}
             results={results}
           />
+          
+          <Outlet />
+
           {results.length > 0 && (
             <Pagination
               currentPage={currentPage}

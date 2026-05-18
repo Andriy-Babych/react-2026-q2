@@ -40,3 +40,8 @@
     font-weight: 500;
     margin-bottom: 1rem;
 }
+
+.result-item-link {
+  text-decoration: none;
+  color: inherit;
+}
