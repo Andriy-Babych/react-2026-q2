@@ -4,7 +4,7 @@ import './nav-bar.css';
 export default function NavigationBar() {
   return (
     <nav className="navigation-bar">
-      <Link to="/">Home</Link>
+      <Link to="/?page=1">Home</Link>
       <Link to="/about">About</Link>
     </nav>
   );

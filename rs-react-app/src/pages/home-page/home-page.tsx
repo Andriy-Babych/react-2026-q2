@@ -59,8 +59,6 @@ function HomePage() {
         params.append('name', normalizedSearchTerm);
       }
 
-      console.log(params.toString());
-
       const response = await fetch('https://stapi.co/api/v1/rest/food/search', {
         method: 'POST',
         headers: {
@@ -74,7 +72,6 @@ function HomePage() {
       }
 
       const data = await response.json();
-      console.log(data);
       setTotalPages(data.page.totalPages);
 
       const results: ResultItem[] = data.foods.map(
