@@ -1,7 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { test, expect, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+
+const renderApp = () =>
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>
+  );
 
 test('shows loading while fetching data', () => {
   vi.stubGlobal(
@@ -9,7 +17,7 @@ test('shows loading while fetching data', () => {
     vi.fn(() => new Promise(() => {}))
   );
 
-  render(<App />);
+  renderApp();
 
   expect(screen.getByText('Loading...')).toBeInTheDocument();
 });
@@ -33,7 +41,7 @@ test('renders results after successful fetch', async () => {
     )
   );
 
-  render(<App />);
+  renderApp();
 
   expect(await screen.findByText('Abalone')).toBeInTheDocument();
   expect(screen.getByText('FOMA0000264633')).toBeInTheDocument();
@@ -51,7 +59,7 @@ test('shows error message after failed fetch', async () => {
     )
   );
 
-  render(<App />);
+  renderApp();
 
   expect(
     await screen.findByText('Something went wrong. Please try again.')
@@ -73,7 +81,7 @@ test('loads saved search term from localStorage', async () => {
     )
   );
 
-  render(<App />);
+  renderApp();
 
   expect(screen.getByRole('searchbox')).toHaveValue('pizza');
 });
@@ -93,7 +101,7 @@ test('saves search term to localStorage after search', async () => {
 
   const user = userEvent.setup();
 
-  render(<App />);
+  renderApp();
 
   const input = screen.getByRole('searchbox');
   await user.type(input, 'Pizza');
@@ -101,4 +109,43 @@ test('saves search term to localStorage after search', async () => {
   await user.click(screen.getByRole('button', { name: 'Search' }));
 
   expect(localStorage.getItem('searchTerm')).toBe('pizza');
+});
+
+test('requests the next API page when pagination advances', async () => {
+  const fetchMock = vi.fn(
+    async (_input: RequestInfo | URL, _init?: RequestInit) => {
+      void _input;
+      void _init;
+
+      return {
+      ok: true,
+      json: async () => ({
+        page: {
+          totalPages: 2,
+        },
+        foods: [
+          {
+            uid: 'FOMA0000264633',
+            name: 'Abalone',
+            earthlyOrigin: 'Earth',
+          },
+        ],
+      }),
+      } as Response;
+    }
+  );
+
+  vi.stubGlobal('fetch', fetchMock);
+
+  const user = userEvent.setup();
+
+  renderApp();
+
+  expect(await screen.findByText('Abalone')).toBeInTheDocument();
+  expect(fetchMock.mock.calls[0][0]).toContain('pageNumber=0');
+
+  await user.click(screen.getByRole('button', { name: 'Next >' }));
+
+  await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+  expect(fetchMock.mock.calls[1][0]).toContain('pageNumber=1');
 });

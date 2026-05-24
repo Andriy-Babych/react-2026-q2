@@ -31,17 +31,13 @@ export default function ResultSection({
           return (
             <Link
               className="result-item-link"
-              to={`details/${resultElement.id}${location.search}`}
+              to={`/details/${resultElement.id}${location.search}`}
               key={resultElement.id}
             >
               <div className={`result-item ${isActive ? 'active' : ''}`}>
-                <div className="result-item_id">
-                  {resultElement.id}
-                </div>
+                <div className="result-item_id">{resultElement.id}</div>
 
-                <div className="result-item_name">
-                  {resultElement.name}
-                </div>
+                <div className="result-item_name">{resultElement.name}</div>
 
                 <div className="result-item_description">
                   {resultElement.description}
