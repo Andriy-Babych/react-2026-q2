@@ -4,6 +4,8 @@ import { useTheme } from '../../context/use-theme';
 
 export default function NavigationBar() {
   const { theme, setTheme } = useTheme();
+  const nextTheme = theme === 'light' ? 'dark' : 'light';
+  const themeIcon = theme === 'light' ? '☀' : '☾';
 
   return (
     <nav className="navigation-bar">
@@ -12,19 +14,15 @@ export default function NavigationBar() {
         <Link to="/about">About</Link>
       </div>
 
-      <label className="theme-selector">
-        <span>Theme</span>
-        <select
-          aria-label="Theme"
-          value={theme}
-          onChange={(event) =>
-            setTheme(event.target.value === 'dark' ? 'dark' : 'light')
-          }
-        >
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </label>
+      <button
+        aria-label={`Switch to ${nextTheme} theme`}
+        className="theme-toggle"
+        onClick={() => setTheme(nextTheme)}
+        title={`Current theme: ${theme}`}
+        type="button"
+      >
+        <span aria-hidden="true">{themeIcon}</span>
+      </button>
     </nav>
   );
 }

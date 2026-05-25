@@ -118,19 +118,19 @@ test('requests the next API page when pagination advances', async () => {
       void _init;
 
       return {
-      ok: true,
-      json: async () => ({
-        page: {
-          totalPages: 2,
-        },
-        foods: [
-          {
-            uid: 'FOMA0000264633',
-            name: 'Abalone',
-            earthlyOrigin: 'Earth',
+        ok: true,
+        json: async () => ({
+          page: {
+            totalPages: 2,
           },
-        ],
-      }),
+          foods: [
+            {
+              uid: 'FOMA0000264633',
+              name: 'Abalone',
+              earthlyOrigin: 'Earth',
+            },
+          ],
+        }),
       } as Response;
     }
   );
@@ -167,10 +167,17 @@ test('switches the application theme', async () => {
 
   renderApp();
 
-  await user.selectOptions(screen.getByRole('combobox', { name: 'Theme' }), [
-    'dark',
-  ]);
+  const themeToggle = screen.getByRole('button', {
+    name: 'Switch to dark theme',
+  });
+
+  expect(themeToggle).toHaveTextContent('☀');
+
+  await user.click(themeToggle);
 
   expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
   expect(localStorage.getItem('theme')).toBe('dark');
+  expect(
+    screen.getByRole('button', { name: 'Switch to light theme' })
+  ).toHaveTextContent('☾');
 });

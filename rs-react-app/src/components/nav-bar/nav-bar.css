@@ -24,18 +24,27 @@ nav {
     }
 }
 
-.theme-selector {
+.theme-toggle {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    color: var(--nav-link);
-    font-weight: 700;
-}
-
-.theme-selector select {
-    padding: 0.35rem 0.5rem;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
     color: var(--text-h);
+    font-size: 1.45rem;
+    line-height: 1;
+    cursor: pointer;
     background-color: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 0.35rem;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+    outline: 3px solid var(--accent-border);
+    outline-offset: 3px;
 }
