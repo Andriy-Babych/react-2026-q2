@@ -1,5 +1,5 @@
 nav {
-    display: flex;
+    display: block;
     justify-content: space-between;
     align-items: center;
     margin-top: 2rem;
@@ -25,9 +25,8 @@ nav {
 }
 
 .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    margin: 1rem auto 0;
     width: 2.5rem;
     height: 2.5rem;
     color: var(--text-h);
