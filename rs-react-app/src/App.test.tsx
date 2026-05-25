@@ -149,3 +149,28 @@ test('requests the next API page when pagination advances', async () => {
   await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
   expect(fetchMock.mock.calls[1][0]).toContain('pageNumber=1');
 });
+
+test('switches the application theme', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: async () => ({
+          foods: [],
+        }),
+      })
+    )
+  );
+
+  const user = userEvent.setup();
+
+  renderApp();
+
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Theme' }), [
+    'dark',
+  ]);
+
+  expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+  expect(localStorage.getItem('theme')).toBe('dark');
+});

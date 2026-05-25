@@ -2,6 +2,10 @@
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
+  --page-bg: hsl(234 60% 65%);
+  --surface: #fff;
+  --surface-soft: #f6f6f6;
+  --nav-link: #fff;
   --border: #e5e4e7;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
@@ -23,7 +27,7 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
-  background-color: hsl(234 60% 65%);
+  background-color: var(--page-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -32,24 +36,22 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+:root[data-theme='dark'] {
+  --text: #d6d9df;
+  --text-h: #fff;
+  --bg: #16171d;
+  --page-bg: #20242d;
+  --surface: #242936;
+  --surface-soft: #1b1f29;
+  --nav-link: #f5f7fb;
+  --border: #3b4252;
+  --code-bg: #1f2028;
+  --accent: #7dd3fc;
+  --accent-bg: rgb(125 211 252 / 15%);
+  --accent-border: rgb(125 211 252 / 50%);
+  --social-bg: rgb(47 48 58 / 50%);
+  --shadow:
+    rgb(0 0 0 / 40%) 0 10px 15px -3px, rgb(0 0 0 / 25%) 0 4px 6px -2px;
 }
 
 #root {
@@ -65,6 +67,8 @@
 
 body {
   margin: 0 20%;
+  color: var(--text);
+  background-color: var(--page-bg);
 }
 
 h1,

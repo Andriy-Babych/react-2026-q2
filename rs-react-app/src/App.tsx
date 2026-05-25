@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import NavigationBar from './components/nav-bar/nav-bar';
 import SelectedItemsFlyout from './components/selected-items-flyout/selected-items-flyout';
+import { ThemeProvider } from './context/theme-provider';
 
 import HomePage from './pages/home-page/home-page';
 import AboutPage from './pages/about-page/about-page';
@@ -11,7 +12,7 @@ import DetailsPage from './pages/details-page/details-page';
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <NavigationBar />
 
       <Routes>
@@ -23,7 +24,7 @@ function App() {
       </Routes>
 
       <SelectedItemsFlyout />
-    </>
+    </ThemeProvider>
   );
 }
 

@@ -7,10 +7,14 @@ nav {
     background-color: transparent;
 
 
+    .navigation-links {
+        display: flex;
+        gap: 1rem;
+    }
+
     a {
         text-decoration: none;
-        margin: 0 1rem;
-        color: hsl(360 100% 100%);
+        color: var(--nav-link);
         font-size: 2rem;
         font-weight: 700;
     }
@@ -18,4 +22,20 @@ nav {
     a:hover {
         text-decoration: underline;
     }
+}
+
+.theme-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--nav-link);
+    font-weight: 700;
+}
+
+.theme-selector select {
+    padding: 0.35rem 0.5rem;
+    color: var(--text-h);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.35rem;
 }
