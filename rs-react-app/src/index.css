@@ -1,0 +1,101 @@
+:root {
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --page-bg: hsl(234 60% 65%);
+  --surface: #fff;
+  --surface-soft: #f6f6f6;
+  --nav-link: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+  background-color: var(--page-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+:root[data-theme='dark'] {
+  --text: #d6d9df;
+  --text-h: #fff;
+  --bg: #16171d;
+  --page-bg: #20242d;
+  --surface: #242936;
+  --surface-soft: #1b1f29;
+  --nav-link: #f5f7fb;
+  --border: #3b4252;
+  --code-bg: #1f2028;
+  --accent: #7dd3fc;
+  --accent-bg: rgb(125 211 252 / 15%);
+  --accent-border: rgb(125 211 252 / 50%);
+  --social-bg: rgb(47 48 58 / 50%);
+  --shadow:
+    rgb(0 0 0 / 40%) 0 10px 15px -3px, rgb(0 0 0 / 25%) 0 4px 6px -2px;
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  
+  
+}
+
+body {
+  margin: 0 20%;
+  color: var(--text);
+  background-color: var(--page-bg);
+}
+
+h1,
+h2 {
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
+}

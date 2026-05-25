@@ -1,0 +1,17 @@
+.close-caption-button {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.close-caption-button:hover {
+    background-color: #fff;
+    color: #1d1d1d;
+    transition: all 0.3s ease;
+}
