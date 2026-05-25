@@ -1,12 +1,8 @@
 import './result-section.css';
 import ErrorButton from '../error-button/error-button';
 import { Link, useLocation, useParams } from 'react-router-dom';
-
-type ResultItem = {
-  id: string;
-  name: string;
-  description: string;
-};
+import { useSelectedItemsStore } from '../../store/selected-items-store';
+import type { ResultItem } from '../../types/food';
 
 type ResultSectionProps = {
   results: ResultItem[];
@@ -19,6 +15,8 @@ export default function ResultSection({
 }: ResultSectionProps) {
   const location = useLocation();
   const { id } = useParams();
+  const selectedItems = useSelectedItemsStore((state) => state.selectedItems);
+  const toggleItem = useSelectedItemsStore((state) => state.toggleItem);
 
   return (
     <section className="result-section">
@@ -27,23 +25,41 @@ export default function ResultSection({
       ) : (
         results.map((resultElement) => {
           const isActive = id === resultElement.id;
+          const isItemSelected = Boolean(selectedItems[resultElement.id]);
 
           return (
-            <Link
-              className="result-item-link"
-              to={`/details/${resultElement.id}${location.search}`}
+            <article
+              className={`result-item ${isActive ? 'active' : ''}`}
               key={resultElement.id}
             >
-              <div className={`result-item ${isActive ? 'active' : ''}`}>
-                <div className="result-item_id">{resultElement.id}</div>
+              <input
+                aria-label={`Select ${resultElement.name}`}
+                checked={isItemSelected}
+                className="result-item-checkbox"
+                onChange={() =>
+                  toggleItem({
+                    ...resultElement,
+                    detailsUrl: `/details/${resultElement.id}`,
+                  })
+                }
+                type="checkbox"
+              />
 
-                <div className="result-item_name">{resultElement.name}</div>
+              <Link
+                className="result-item-link"
+                to={`/details/${resultElement.id}${location.search}`}
+              >
+                <div className="result-item-content">
+                  <div className="result-item_id">{resultElement.id}</div>
 
-                <div className="result-item_description">
-                  {resultElement.description}
+                  <div className="result-item_name">{resultElement.name}</div>
+
+                  <div className="result-item_description">
+                    {resultElement.description}
+                  </div>
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </article>
           );
         })
       )}

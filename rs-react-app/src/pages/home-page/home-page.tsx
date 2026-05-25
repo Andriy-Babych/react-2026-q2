@@ -6,14 +6,9 @@ import { useState, type ChangeEvent, useEffect, useCallback } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 
 import { useLocalStorage } from '../../hooks/use-local-storage';
+import type { ResultItem } from '../../types/food';
 
 import './home-page.css';
-
-type ResultItem = {
-  id: string;
-  name: string;
-  description: string;
-};
 
 type FoodSearchItem = {
   uid: string;
