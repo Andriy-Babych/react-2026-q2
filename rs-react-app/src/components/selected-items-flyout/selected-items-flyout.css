@@ -1,0 +1,39 @@
+.selected-items-flyout {
+  position: sticky;
+  bottom: 1rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: min(100%, 48rem);
+  margin: 1rem auto;
+  padding: 0.75rem 1rem;
+  color: #121212;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 20%);
+}
+
+.selected-items-count {
+  font-weight: 700;
+}
+
+.selected-items-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.selected-items-actions button {
+  padding: 0.45rem 0.75rem;
+  color: #fff;
+  cursor: pointer;
+  background-color: #2f5f9f;
+  border: 0;
+  border-radius: 0.35rem;
+}
+
+.selected-items-actions button:hover {
+  background-color: #244c80;
+}

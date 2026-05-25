@@ -2,6 +2,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
 import NavigationBar from './components/nav-bar/nav-bar';
+import SelectedItemsFlyout from './components/selected-items-flyout/selected-items-flyout';
 
 import HomePage from './pages/home-page/home-page';
 import AboutPage from './pages/about-page/about-page';
@@ -19,9 +20,10 @@ function App() {
         </Route>
         <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes >
-    </>
+      </Routes>
 
+      <SelectedItemsFlyout />
+    </>
   );
 }
 
